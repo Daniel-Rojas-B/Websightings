@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+
+<body>
+    <div class="header_dash">
+        <h1>Sasquatch Websighting</h1>
+        <div class="mini_header">
+            <h4>{{user.first_name}} {{user.last_name}}</h4>
+            <a href="/sightings/new"><button>Report a Sighting</button></a>
+            
+            <a href="/logout"><button>Logout</button></a>
+        </div>
+    </div>
+
+    <h5>Reported Sightings</h5>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Location</th>
+                <th>Date / Reported By</th>
+                <th>Actions</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for sighting in all_sightings %}
+            
+            <tr>
+                <td>{{sighting.location}} <br>
+                    <label for="">Skeptics:</label>{{sighting.number_of_sasquatches}}
+                </td>
+
+                <td>Date of sighting: {{sighting.date}} <br>
+                    Reported by: {{sighting.creator.first_name}} {{sighting.creator.last_name}}
+                </td>
+
+                
+                <td><a href="/sighting/view/{{sighting.id}}">View</a>
+                    {%if user.first_name == sighting.creator.first_name %}
+                    |<a href="/sighting/edit/{{sighting.id}}"> Edit </a>|
+                    <a href="/sighting/delete/{{sighting.id}}"> Delete </a>
+                </td>
+                    {%endif%}
+               
+
+               
+            </tr>
+                
+                            
+
+            {%endfor%}
+        </tbody>
+
+    </table>
+
+
+</body>
+
+</html>

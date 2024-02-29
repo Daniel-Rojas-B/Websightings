@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+</head>
+
+<body>
+    <div class="header_dash">
+        <h1>Sasquatch Websighting</h1>
+        <div class="mini_header">
+            <h4>{{user.first_name}} {{user.last_name}}</h4>
+            <a href="/sightings"><button>Dashboard</button></a>
+            <a href="/logout"><button>Logout</button></a>
+        </div>
+    </div>
+
+    <h3>Edit This Sighting</h3>
+
+    <form action="/sighting/update/{{sighting.id}}" method="POST">
+
+        {% with messages = get_flashed_messages(category_filter=['new_sighting']) %}
+        {% if messages %}
+        {% for message in messages %}
+        <p style="color: red">{{message}}</p>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+
+
+        <div class="bigcontainer">
+            <div class="container">
+                <div class="left_column">
+                    <input type="hidden" name="id" value="{{sighting.id}}">
+                    <input type="hidden" name="user_id" value="{{sighting.user_id}}">
+                    <label for="field1" class="text-black">Location:</label>
+                    <input type="text" name="location" class="form-control" value="{{sighting.location}}">
+                    <br>
+                    <br>
+                    <label for="field2" class="text-black">Date of Sighting:</label>
+                    <input type="date" id="date" name="selectedDate" value="{{sighting.date}}">
+                    <br>
+                    <br>
+                    <label for="field2" class="text-black">Number of Sasquatches:</label>
+                    <input type="number" id="date" name="number_of_sasquatches" value="{{sighting.number_of_sasquatches}}" min="1">
+                    <br>
+                    <br>
+                    <label for="field2" class="text-black">What Happened?:</label>
+                    <br>
+                    <textarea type="text" style="height: 150px; width:365px" name="what_happen"
+                        class="form-control" >{{sighting.what_happen}}</textarea>
+                        <br>
+                    <input type="submit" value="Report" class="btn">
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+</body>
+
+</html>
